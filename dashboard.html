@@ -7,7 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="js/content.js" defer></script>
     <script src="js/templates.js" defer></script>
+    <script src="js/api_script.js" defer></script>
     <script src="js/script.js" defer></script>
+
+
+
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon//apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon//apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/favicon//apple-icon-72x72.png">
@@ -45,6 +49,10 @@
                     <img src="images/icons/services.svg" alt="Services">
                     <span>Services</span>
                 </div>
+                <div data-link="Market" data-active="false" class="menu-item">
+                    <img src="images/icons/market.svg" alt="Market">
+                    <span>Stock market</span>
+                </div>
             </div>
             <div class="menu-items-container bottom">
                 <div data-link="Account" data-active="false" class="menu-item">
@@ -73,6 +81,7 @@
                     <div><span>Hello,</span> <span id="profile-name"></span></div>
                     <img id='profile-image' alt="Profile Image">
                 </div>
+                <div class="line"></div>
                 <div class="mobile-menu-items-container">
                     <div class="mobile-menu-item" data-link="Overview" data-active="true">
                         <span>Overview</span>
@@ -89,6 +98,10 @@
                     <div class="mobile-menu-item" data-link="Services" data-active="false">
                         <span>Services</span>
                         <img src="images/icons/services.svg" alt="Services Icon">
+                    </div>
+                    <div class="mobile-menu-item" data-link="Market" data-active="false">
+                        <span>Stock market</span>
+                        <img src="images/icons/market.svg" alt="Market Icon">
                     </div>
                 </div>
                 <div class="mobile-menu-items-container bottom">
@@ -225,6 +238,31 @@
                     <div class="half-vertical">
                         <div id="contact" class="title"><img src="images/icons/phone.svg" alt="Phone Icon">
                             <h3>Contact an agent for a new loan or a new deposit box</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section data-opened="false" id="market">
+                <div class="half-horizontal">
+                    <div class="full-container">
+                        <div class="title">
+                            <h1>Currency exchange rates</h1>
+                            <img data-settings="currency" src="images/icons/settings.svg" alt="Settings Icon">
+                        </div>
+                        <div class="scroll-container" data-set="currency">
+                        </div>
+                    </div>
+                </div>
+                <div class="half-horizontal">
+                    <div class="full-container">
+                        <div class="title">
+                            <h1>Stock market</h1>
+                            <img data-settings="market" src="images/icons/settings.svg" alt="Settings Icon">
+                        </div>
+                        <div class="scroll-container" data-set="stock">
+                        </div>
+                        <div class="stock-info-container">
+
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,7 @@ function generatePage() {
     generateActivitySection();
     generateServicesSection();
     generateAccountSection();
+    generateMarketSection();
 }
 
 function generateOverview() {
@@ -123,6 +124,55 @@ function generateServicesSection() {
     for (let key of safeBoxes) {
         elem = branch_container.appendChild(getChild(BRANCH_TEMPLATE(key)));
     }
+}
+
+function generateMarketSection() {
+    const currency_container = document.querySelector('#market .scroll-container[data-set = "currency"]');
+    const stock_card_container = document.querySelector('#market .scroll-container[data-set = "stock"]');
+
+    for (let key of currency_list)
+        fetch('https://api.coinbase.com/v2/exchange-rates?currency=' + key.base).then(onResponse).then(function(json) {
+            for (let temp of key.currencies) {
+                currency_container.appendChild(
+                    getChild(CURRENCY_BLOCK_TEMPLATE(key.base, temp, json.data.rates[temp].slice(0, 6)))
+                );
+                //generate chart
+            }
+        });
+
+    for (let key of stockSymbols)
+        fetch(
+            'https://cloud.iexapis.com/stable/stock/' + key.symbol + '/quote?token=pk_9bceca2c95c04eee8febdc0b538c89a6'
+        )
+        .then(onResponse)
+        .then(function(json) {
+            let block = {
+                trend: '',
+                name: json.companyName,
+                symbol: json.symbol,
+                price: json.latestPrice,
+                change: json.change,
+                changePercent: json.changePercent * 100,
+                favorite: 'false',
+                high: json.high,
+                low: json.low,
+                pe: json.peRatio,
+                week52High: json.week52High,
+                week52Low: json.week52Low,
+                volume: json.volume,
+                cap: ''
+            };
+            json.change > 0 ? (block.trend = 'up') : (block.trend = 'down');
+
+            if (key.favorite === true) {
+                //if element is favorite we generate the chart
+                block.favorite = 'true';
+                const stock_details = document.querySelector('#market .stock-info-container');
+                stock_details.appendChild(getChild(STOCK_INFO_TEMPLATE(block)));
+            }
+            const elem = stock_card_container.appendChild(getChild(STOCK_CARD_TEMPLATE(block)));
+            elem.addEventListener('click', changeStock);
+        });
 }
 
 function generateAccountSection() {
@@ -327,12 +377,12 @@ function openCloseMenu(e) {
         elem.dataset.img = 'close';
         elem.src = 'images/icons/clear.svg';
         mobile_menu.dataset.active = 'true';
-        document.querySelector('body').dataset.overflow = 'hidden';
+        document.querySelector('header').dataset.overflow = 'hidden';
     } else {
         mobile_menu.dataset.active = 'false';
         elem.dataset.img = 'open';
         elem.src = 'images/icons/burger.svg';
-        document.querySelector('body').dataset.overflow = '';
+        document.querySelector('header').dataset.overflow = '';
     }
 }
 
@@ -385,6 +435,55 @@ function removeFavorite(e) {
     favorite_element_container.removeChild(toRemove);
     if (favorite_element_container.children.length === 0) {
         favorite_container.dataset.active = 'false';
+    }
+}
+
+function changeStock(e) {
+    const elem = e.currentTarget;
+    const stock_container = document.querySelector('#market .stock-info-container');
+    if (elem.dataset.active === 'false') {
+        document.querySelector(
+                '#market .scroll-container[data-set = "stock"] .stock-card[data-active="true"]'
+            ).dataset.active =
+            'false';
+        elem.dataset.active = 'true';
+        document.querySelector("#market .stock-info-container div[data-active='true']").dataset.active = 'false';
+        //change chart view
+        if (
+            document.querySelector('#market .stock-info-container div[data-stock = ' + elem.dataset.link + ']') === null
+        ) {
+            fetch(
+                    'https://cloud.iexapis.com/stable/stock/' +
+                    elem.dataset.link +
+                    '/quote?token=pk_9bceca2c95c04eee8febdc0b538c89a6'
+                )
+                .then(onResponse)
+                .then(function(json) {
+                    let block = {
+                        trend: '',
+                        name: json.companyName,
+                        symbol: json.symbol,
+                        price: json.latestPrice,
+                        change: json.change,
+                        changePercent: json.changePercent * 100,
+                        favorite: 'false',
+                        high: json.high,
+                        low: json.low,
+                        pe: json.peRatio,
+                        week52High: json.week52High,
+                        week52Low: json.week52Low,
+                        volume: json.volume,
+                        cap: ''
+                    };
+                    json.change > 0 ? (block.trend = 'up') : (block.trend = 'down');
+                    stock_container.appendChild(getChild(STOCK_INFO_TEMPLATE(block)));
+                });
+        } else {
+            document.querySelector(
+                    '#market .stock-info-container div[data-stock = ' + elem.dataset.link + ']'
+                ).dataset.active =
+                'true';
+        }
     }
 }
 

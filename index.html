@@ -18,6 +18,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="images/favicon//favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="js/index.js" defer></script>
 </head>
 
 <body>
@@ -25,15 +26,24 @@
         <img id="logo" src="images/logo.svg" alt="Website Logo">
         <img id="mobile-logo" src="images/mobile-logo.svg" alt="Website Logo">
         <div class="navigation">
-            <img src="images/icons/menu.svg" alt="Mobile menu icon">
-            <a href="#" class="active">Home</a>
-            <a href="#">Pricing</a>
-            <a href="#">Services</a>
-            <a href="#">About us</a>
+            <img id="menu-button" src="images/icons/burger.svg" alt="Mobile menu icon">
+            <a href="#home" data-active='true'>Home</a>
+            <a href="#pricing" data-active='false'>Products</a>
+            <a href="#services" data-active='false'>Services</a>
+
             <div class="button">Login</div>
         </div>
     </nav>
-    <header>
+    <div class="mobile-menu" data-active="false">
+        <div class="mobile-menu-items">
+            <a href="#home" data-active='true'>Home</a>
+            <a href="#pricing" data-active='false'>Products</a>
+            <a href="#services" data-active='false'>Services</a>
+
+        </div>
+        <div class="button">Login</div>
+    </div>
+    <header id="home">
         <div class="overlay"></div>
         <div class="h-container">
             <div>
@@ -44,7 +54,7 @@
         </div>
     </header>
 
-    <section class="snd-back">
+    <section class="snd-back" id="pricing">
         <div class="content">
             <div class="plans-main-text"><span class="active">Simple </span><span>Plans</span></div>
             <div class="plans-secondary-text"><span>Choose a plan that works best for you and your needs</span></div>
@@ -77,7 +87,7 @@
     </section>
 
 
-    <section>
+    <section id="services">
         <div class="content">
             <div class="title-text">
                 <span class="active">Fast and</span><span> easy loans</span>
@@ -113,7 +123,7 @@
             </div>
         </div>
     </section>
-    <footer>
+    <footer id="about">
         <div>
             <a href="https://www.unict.it/"><img src="images/uniLogo.svg" alt="University Logo"></a>
         </div>

@@ -190,3 +190,71 @@ const PROFILE_INFO_TEMPLATE = (profile) => `
     <h3>Monthly fee</h3>
     <h1>${profile.fee} EUR</h1>
 </div>`;
+
+const CURRENCY_BLOCK_TEMPLATE = (base, curr, value) => `
+<div class="currency-card">
+    <div class="info">
+        <h2>${base}/${curr}</h2>
+        <h3>${value}</h3>
+    </div>
+<img src="images/chart.svg" alt="chart">
+</div>
+`;
+
+const STOCK_CARD_TEMPLATE = (stock_info) => `
+<div class="stock-card" data-link=${stock_info.symbol} data-active=${stock_info.favorite}>
+    <div class="stock-title">
+        <h2>${stock_info.name} (${stock_info.symbol})</h2>
+        <h3>${stock_info.price}</h3>
+    </div>
+    <div class="value" data-trend = ${stock_info.trend}>
+        <span>${stock_info.change} (${stock_info.changePercent} %)</span>
+        <img src="images/icons/trending_${stock_info.trend}.svg" alt="Trending icon">
+    </div>
+</div>
+`;
+const STOCK_INFO_TEMPLATE = (stock_info) => `
+<div data-active = "true" data-stock='${stock_info.symbol}'>
+    <div class="stock-title">
+        <h1>${stock_info.name} (${stock_info.symbol})</h1>
+        <div class="stock-title-value">
+            <h3>${stock_info.price}</h3>
+            <h3 data-trend = ${stock_info.trend}>${stock_info.change}</h3>
+        </div>
+    </div>
+    <div class="chart-container">
+        <div class="chart">
+            <img src="images/big_chart.svg" alt="Chart">
+        </div>
+        <div class="stock-info">
+            <div class="info">
+                <h2>Max</h2>
+                <h3>${stock_info.high}</h3>
+            </div>
+            <div class="info">
+                <h2>Min</h2>
+                <h3>${stock_info.low}</h3>
+            </div>
+            <div class="info">
+                <h2>Min 52W</h2>
+                <h3>${stock_info.week52Low}</h3>
+            </div>
+            <div class="info">
+                <h2>Max 52W</h2>
+                <h3>${stock_info.week52High}</h3>
+            </div>
+            <div class="info">
+                <h2>P/E<h2>
+                <h3>${stock_info.pe}</h3>
+            </div>
+            <div class="info">
+                <h2>Volume</h2>
+                <h3>${stock_info.volume}</h3>
+            </div>
+            <div class="info">
+                <h2>Cap.</h2>
+                <h3>${stock_info.cap}</h3>
+            </div>
+        </div>
+    </div>
+</div>`;

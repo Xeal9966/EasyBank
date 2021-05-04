@@ -199,3 +199,28 @@ const profile = [{
     fee: '37.50',
     img: 'images/profile.png'
 }];
+
+const currency_list = [{
+        base: 'EUR',
+        currencies: ['USD', 'GBP']
+    },
+    {
+        base: 'USD',
+        currencies: ['MXN', 'JPY']
+    }
+];
+
+const stockSymbols = [{
+        symbol: 'AAPL',
+        favorite: true
+    },
+    {
+        symbol: 'NKE'
+    },
+    {
+        symbol: 'MSFT'
+    },
+    {
+        symbol: 'SBUX'
+    }
+];
